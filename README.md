@@ -8,3 +8,7 @@ cd CyberMux/
 chmod +x *
 
 ./CyberMux
+
+
+sudo apt update
+sudo apt install firefox-esr
