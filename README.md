@@ -1,43 +1,58 @@
-🔹 1. ESTRUTURA BÁSICA DA LINGUAGEM
-2. | Comando / Estrutura | Descrição                              | Exemplo                             |
-| ------------------- | -------------------------------------- | ----------------------------------- |
-| `print()`           | Exibe uma mensagem na tela.            | `print("Olá, mundo!")`              |
-| `input()`           | Lê uma entrada do usuário.             | `nome = input("Digite seu nome: ")` |
-| `type()`            | Mostra o tipo de dado de uma variável. | `print(type(42))` → `<class 'int'>` |
-| `del`               | Remove variáveis, listas, itens etc.   | `del x`                             |
+# Guia Completo de Python  
+**por DestroyerX**  
+## Sumário  
+1. Introdução  
+2. Estrutura Básica  
+3. Variáveis e Tipos de Dados  
+4. Operadores  
+5. Estruturas Condicionais  
+6. Estruturas de Repetição  
+7. Funções  
+8. Classes e Objetos  
+9. Tratamento de Exceções  
+10. Manipulação de Arquivos  
+11. Módulos e Bibliotecas  
+12. Funções Embutidas  
+13. Estruturas de Dados - Métodos Úteis  
+14. Módulos Importantes  
+15. Exemplo Completo  
 
-🔹 2. VARIÁVEIS E TIPOS DE DADOS
-3. | Tipo    | Descrição                       | Exemplo                                 |
-| ------- | ------------------------------- | --------------------------------------- |
-| `int`   | Número inteiro                  | `idade = 25`                            |
-| `float` | Número decimal                  | `altura = 1.75`                         |
-| `str`   | Texto (string)                  | `nome = "Ana"`                          |
-| `bool`  | Verdadeiro/Falso                | `ativo = True`                          |
-| `list`  | Lista mutável                   | `frutas = ["maçã", "banana", "uva"]`    |
-| `tuple` | Tupla imutável                  | `coordenadas = (10, 20)`                |
-| `dict`  | Dicionário (pares chave: valor) | `aluno = {"nome": "João", "idade": 20}` |
-| `set`   | Conjunto (valores únicos)       | `numeros = {1, 2, 3}`                   |
+## Introdução  
+Este guia contém **todos os comandos e estruturas mais importantes do Python**, com exemplos práticos e tabelas formatadas para visualização no GitHub Dark Mode.
 
-🔹 3. OPERADORES
-| Tipo        | Operadores                          | Exemplo               | Resultado                      |     |
-| ----------- | ----------------------------------- | --------------------- | ------------------------------ | --- |
-| Aritméticos | `+`, `-`, `*`, `/`, `//`, `%`, `**` | `2 ** 3`              | `8`                            |     |
-| Comparação  | `==`, `!=`, `>`, `<`, `>=`, `<=`    | `5 != 3`              | `True`                         |     |
-| Lógicos     | `and`, `or`, `not`                  | `(5 > 3) and (2 < 1)` | `False`                        |     |
-| Atribuição  | `=`, `+=`, `-=`, `*=`, `/=`, etc.   | `x += 1`              | Soma 1 a `x`                   |     |
-| Pertinência | `in`, `not in`                      | `"a" in "casa"`       | `True`                         |     |
-| Identidade  | `is`, `is not`                      | `x is y`              | Verifica se são o mesmo objeto |     |
-| Bit a bit   | `&`, `                              | `, `^`, `<<`, `>>`    | `5 & 3`                        | `1` |
+## Estrutura Básica  
+| Comando | Descrição | Exemplo |  
+|---------|-----------|---------|  
+| `print()` | Exibe mensagem | `print("Olá, mundo!")` |  
+| `input()` | Lê entrada | `nome = input("Digite seu nome: ")` |  
+| `type()` | Mostra tipo da variável | `type(42)` |  
+| `del` | Remove variável ou item | `del x` |  
 
-🔹 4. ESTRUTURAS CONDICIONAIS
-| Comando | Descrição                                      | Exemplo                            |
-| ------- | ---------------------------------------------- | ---------------------------------- |
-| `if`    | Executa um bloco se a condição for verdadeira. | `if x > 10: print("Maior que 10")` |
-| `elif`  | Verifica nova condição se a anterior falhar.   | `elif x == 10:`                    |
-| `else`  | Executa se todas as condições falharem.        | `else: print("Menor que 10")`      |
+## Variáveis e Tipos de Dados  
+| Tipo | Descrição | Exemplo |  
+|------|-----------|---------|  
+| `int` | Inteiro | `idade = 25` |  
+| `float` | Decimal | `altura = 1.75` |  
+| `str` | Texto | `nome = "Ana"` |  
+| `bool` | Verdadeiro/Falso | `ativo = True` |  
+| `list` | Lista mutável | `frutas = ["maçã","banana"]` |  
+| `tuple` | Tupla imutável | `coordenadas = (10,20)` |  
+| `dict` | Dicionário | `aluno = {"nome":"João","idade":20}` |  
+| `set` | Conjunto | `numeros = {1,2,3}` |  
 
-🔹 Exemplo pratico:
-| ------- | ---------------------------------------------- | ---------------------------------- |
+## Operadores  
+| Tipo | Operadores | Exemplo | Resultado |  
+|------|-----------|---------|-----------|  
+| Aritméticos | `+ - * / // % **` | `2**3` | 8 |  
+| Comparação | `== != > < >= <=` | `5!=3` | True |  
+| Lógicos | `and or not` | `(5>3) and (2<1)` | False |  
+| Atribuição | `= += -= *= /=` | `x+=1` | Soma 1 a x |  
+| Pertinência | `in, not in` | `"a" in "casa"` | True |  
+| Identidade | `is, is not` | `x is y` | True/False |  
+| Bit a bit | `& | ^ << >>` | `5 & 3` | 1 |  
+
+## Estruturas Condicionais  
+```python
 x = 15
 if x > 10:
     print("Maior que 10")
@@ -45,100 +60,138 @@ elif x == 10:
     print("Igual a 10")
 else:
     print("Menor que 10")
-| ------- | ---------------------------------------------- | ---------------------------------- |
+```  
 
-🔹 5. ESTRUTURAS DE REPETIÇÃO
-| Comando    | Descrição                                  | Exemplo                       |
-| ---------- | ------------------------------------------ | ----------------------------- |
-| `for`      | Itera sobre uma sequência.                 | `for i in range(5): print(i)` |
-| `while`    | Repete enquanto a condição for verdadeira. | `while x < 10: x += 1`        |
-| `break`    | Interrompe o loop.                         | `if i == 3: break`            |
-| `continue` | Pula para a próxima iteração.              | `if i == 2: continue`         |
-| `pass`     | Não faz nada (usado como placeholder).     | `if cond: pass`               |
-
-🔹 Exemplo:
-| ---------- | ------------------------------------------ | ----------------------------- |
-for i in range(1, 6):
+## Estruturas de Repetição  
+```python
+for i in range(1,6):
     if i == 3:
         continue
     print(i)
-| ---------- | ------------------------------------------ | ----------------------------- |
+```  
+| Comando | Descrição |  
+|---------|-----------|  
+| `for` | Itera sobre sequência |  
+| `while` | Repete enquanto verdadeiro |  
+| `break` | Interrompe loop |  
+| `continue` | Pula para próxima iteração |  
+| `pass` | Placeholder, não faz nada |  
 
-🔹 6. FUNÇÕES
-| Comando    | Descrição             | Exemplo                           |
-| ---------- | --------------------- | --------------------------------- |
-| `def`      | Define uma função.    | `def soma(a, b): return a + b`    |
-| `return`   | Retorna um valor.     | `return resultado`                |
-| `lambda`   | Cria função anônima.  | `dobro = lambda x: x*2`           |
-| `*args`    | Argumentos variáveis. | `def soma(*n): return sum(n)`     |
-| `**kwargs` | Argumentos nomeados.  | `def info(**dados): print(dados)` |
-
-🔹 Exemplo:
-| ---------- | ------------------------------------------ | ----------------------------- |
+## Funções  
+```python
 def saudacao(nome="Visitante"):
     print(f"Olá, {nome}!")
-
 saudacao("Maria")
-| ---------- | ------------------------------------------ | ----------------------------- |
+```  
+| Comando | Descrição |  
+|---------|-----------|  
+| `def` | Define função |  
+| `return` | Retorna valor |  
+| `lambda` | Função anônima |  
+| `*args` | Argumentos variáveis |  
+| `**kwargs` | Argumentos nomeados |  
 
-🔹 7. CLASSES E OBJETOS (POO)
-| Comando    | Descrição                     | Exemplo                     |
-| ---------- | ----------------------------- | --------------------------- |
-| `class`    | Define uma classe.            | `class Pessoa:`             |
-| `__init__` | Construtor da classe.         | `def __init__(self, nome):` |
-| `self`     | Referência ao próprio objeto. | `self.nome = nome`          |
-| `method`   | Define métodos da classe.     | `def falar(self): ...`      |
-
-🔹 Exemplo:
-| ---------- | ----------------------------- | --------------------------- |
+## Classes e Objetos  
+```python
 class Pessoa:
-    def __init__(self, nome):
+    def __init__(self,nome):
         self.nome = nome
-
     def apresentar(self):
         print(f"Olá, meu nome é {self.nome}")
-
 p1 = Pessoa("João")
 p1.apresentar()
-| ---------- | ----------------------------- | --------------------------- |
+```  
+| Comando | Descrição |  
+|---------|-----------|  
+| `class` | Define classe |  
+| `__init__` | Construtor |  
+| `self` | Referência ao próprio objeto |  
+| `method` | Método da classe |  
 
-🔹 8. TRATAMENTO DE EXCEÇÕES
-| Comando   | Descrição                             | Exemplo                     |
-| --------- | ------------------------------------- | --------------------------- |
-| `try`     | Bloco com código que pode gerar erro. | `try: x = 1 / 0`            |
-| `except`  | Trata o erro.                         | `except ZeroDivisionError:` |
-| `else`    | Executa se não houver erro.           | `else: print("Sem erro")`   |
-| `finally` | Executa sempre.                       | `finally: print("Fim")`     |
-| `raise`   | Lança um erro.                        | `raise ValueError("Erro!")` |
-
-🔹 Exemplo:
-| ---------- | ----------------------------- | --------------------------- |
+## Tratamento de Exceções  
+```python
 try:
     n = int(input("Digite um número: "))
 except ValueError:
-    print("Por favor, insira um número válido.")
+    print("Número inválido")
 finally:
-    print("Fim do programa.")
-| ---------- | ----------------------------- | --------------------------- |
+    print("Fim do programa")
+```  
+| Comando | Descrição |  
+|---------|-----------|  
+| `try` | Bloco que pode gerar erro |  
+| `except` | Trata erro |  
+| `else` | Executa se não houver erro |  
+| `finally` | Executa sempre |  
+| `raise` | Lança exceção |  
 
-🔹 9. MANIPULAÇÃO DE ARQUIVOS
-| Comando   | Descrição                     | Exemplo                        |
-| --------- | ----------------------------- | ------------------------------ |
-| `open()`  | Abre um arquivo.              | `f = open("arquivo.txt", "r")` |
-| `read()`  | Lê conteúdo.                  | `conteudo = f.read()`          |
-| `write()` | Escreve conteúdo.             | `f.write("Olá")`               |
-| `close()` | Fecha o arquivo.              | `f.close()`                    |
-| `with`    | Abre e fecha automaticamente. | `with open("a.txt") as f:`     |
-
-🔹 Exemplo:
-| --------- | ----------------------------- | ------------------------------ |
-with open("dados.txt", "w") as arquivo:
+## Manipulação de Arquivos  
+```python
+with open("dados.txt","w") as arquivo:
     arquivo.write("Aprendendo Python!")
-| --------- | ----------------------------- | ------------------------------ |
+```  
+| Comando | Descrição |  
+|---------|-----------|  
+| `open()` | Abrir arquivo |  
+| `read()` | Ler conteúdo |  
+| `write()` | Escrever conteúdo |  
+| `close()` | Fechar arquivo |  
+| `with` | Abre e fecha automaticamente |  
 
-Guia_Completo_Python_by_DestroyerX.md
+## Módulos e Bibliotecas  
+```python
+import math
+from math import sqrt
+import numpy as np
+```  
+| Comando | Descrição |  
+|---------|-----------|  
+| `import` | Importa módulo |  
+| `from ... import ...` | Importa parte específica |  
+| `as` | Cria apelido para módulo |  
 
+## Funções Embutidas  
+| Função | Descrição | Exemplo | Resultado |  
+|--------|-----------|---------|-----------|  
+| `len()` | Tamanho | `len("Python")` | 6 |  
+| `max()` | Maior valor | `max([1,2,3])` | 3 |  
+| `min()` | Menor valor | `min([1,2,3])` | 1 |  
+| `sum()` | Soma | `sum([1,2,3])` | 6 |  
+| `sorted()` | Ordena | `sorted([3,1,2])` | [1,2,3] |  
 
+## Estruturas de Dados - Métodos Úteis  
+| Tipo | Métodos | Exemplo |  
+|------|--------|---------|  
+| Lista | append(), extend(), remove(), sort(), reverse() | `frutas.append("laranja")` |  
+| Dicionário | keys(), values(), items(), get() | `dados.get("nome")` |  
+| Conjunto | add(), union(), intersection() | `A.union(B)` |  
 
+## Módulos Importantes  
+| Módulo | Uso |  
+|--------|-----|  
+| math | Funções matemáticas |  
+| datetime | Data e hora |  
+| os | Sistema operacional |  
+| sys | Parâmetros e ambiente |  
+| random | Números aleatórios |  
+| json | Arquivos JSON |  
+| re | Expressões regulares |  
+| collections | Estruturas avançadas |  
+| itertools | Iteração avançada |  
+| functools | Funções de alta ordem |  
 
+## Exemplo Completo  
+```python
+nomes = []
+while True:
+    n = input("Digite um nome (ou 'sair'): ")
+    if n.lower() == "sair":
+        break
+    nomes.append(n)
 
+print("\\nNomes cadastrados:")
+for nome in sorted(nomes):
+    print(nome)
+```  
+
+**Fim do Guia Python — por DestroyerX**
