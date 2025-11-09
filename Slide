@@ -1,2 +1,289 @@
+import os
+import sys
+import json
+from time import sleep
 
-q
+ARQUIVO_DADOS = "tarefas.json"
+
+def carregar_dados():
+    try:
+        with open(ARQUIVO_DADOS, 'r') as f:
+            dados = json.load(f)
+            return dados
+    except FileNotFoundError:
+        return {'lista_tudo': {}, 'lista_concluidas': {}, 'lista_naoconcluidas': {}}
+    except Exception as e:
+        print(f"Erro ao carregar dados: {e}")
+        return {'lista_tudo': {}, 'lista_concluidas': {}, 'lista_naoconcluidas': {}}
+
+def salvar_dados():
+    try:
+        dados = {
+            'lista_tudo': lista_tudo,
+            'lista_concluidas': lista_concluidas,
+            'lista_naoconcluidas': lista_naoconcluidas
+        }
+        with open(ARQUIVO_DADOS, 'w') as f:
+            json.dump(dados, f)
+    except Exception as e:
+        print(f"Erro ao salvar dados: {e}")
+
+dados_carregados = carregar_dados()
+lista_tudo = dados_carregados.get('lista_tudo', {})
+lista_concluidas = dados_carregados.get('lista_concluidas', {})
+lista_naoconcluidas = dados_carregados.get('lista_naoconcluidas', {})
+
+def escrever_devagar(text, time=0.03):
+    for ch in text:
+        print(ch, end='', flush=True)
+        sleep(time)
+    print()
+
+def limpar_tela():
+    os.system('cls' if os.name == 'nt' else 'clear')
+
+def menu():
+    escrever_devagar("Qual opção você deseja?")
+    print("""[ 1 ] Criar Tarefa
+[ 2 ] Ver todas as tarefas
+[ 3 ] Ver tarefas concluidas
+[ 4 ] Ver tarefas não concluidas
+[ 5 ] Marcar tarefa como concluida
+[ 6 ] Desmarcar tarefa como concluida
+[ 7 ] Excluir tarefa
+[ 8 ] Limpar todas as tarefas
+[ 0 ] Sair""")
+
+def fazer_opcao():
+    menu()
+    try:
+        resp = int(input(": "))
+        if resp == 0:
+            escrever_devagar("Saindo do programa...")
+            salvar_dados()
+            sys.exit()
+        elif resp == 1:
+            escrever_devagar("Executando a função: \033[34mCriar Tarefa\033[m")
+            sleep(1)
+            criar_tarefa()
+        elif resp == 2:
+            escrever_devagar("Executando a função: \033[34mVer todas as tarefas\033[m")
+            sleep(1)
+            ver_todas()
+        elif resp == 3:
+            escrever_devagar("Executando a função: \033[34mVer tarefas concluidas\033[m")
+            sleep(1)
+            ver_feitas()
+        elif resp == 4:
+            escrever_devagar("Executando a função: \033[34mVer tarefas não concluidas\033[m")
+            sleep(1)
+            ver_naofeitas()
+        elif resp == 5:
+            escrever_devagar("Executando a função: \033[34mMarcar tarefa como concluida\033[m")
+            sleep(1)
+            marcar_como_concluida()
+        elif resp == 6:
+            escrever_devagar("Executando a função: \033[34mDesmarcar tarefa como concluida\033[m")
+            sleep(1)
+            desmarcar_como_concluida()
+        elif resp == 7:
+            escrever_devagar("Executando a função: \033[34mExcluir tarefa\033[m")
+            sleep(1)
+            excluir_tarefa()
+        elif resp == 8:
+            escrever_devagar("Executando a função: \033[34mLimpar todas as tarefas\033[m")
+            sleep(1)
+            limpar_todas_tarefas()
+        else:
+            escrever_devagar("\033[31mOpção inválida! Tente novamente.\033[m")
+            sleep(2)
+            fazer_opcao()
+    except ValueError:
+        escrever_devagar("\033[31mDigite um número válido!\033[m")
+        sleep(2)
+        fazer_opcao()
+
+def criar_tarefa():
+    limpar_tela()
+    escrever_devagar("\033[32mCriar nova tarefa:\033[m")
+    
+    nome_tarefa = input("Qual nome deseja para sua tarefa?: ").strip().lower()
+    
+    if nome_tarefa in lista_tudo:
+        escrever_devagar("\033[31mEsta tarefa já existe!\033[m")
+        sleep(2)
+        fazer_opcao()
+        return
+    
+    estado = input("Quer que ela entre como [concluida/a fazer]: ").strip().lower()
+    
+    if estado == 'concluida':
+        lista_tudo[nome_tarefa] = True
+        lista_concluidas[nome_tarefa] = True
+        escrever_devagar(f"\033[32mTarefa '{nome_tarefa}' criada como CONCLUÍDA!\033[m")
+    else:
+        lista_tudo[nome_tarefa] = False
+        lista_naoconcluidas[nome_tarefa] = False
+        escrever_devagar(f"\033[32mTarefa '{nome_tarefa}' criada como A FAZER!\033[m")
+    
+    salvar_dados() 
+    sleep(2)
+    fazer_opcao()
+
+def ver_todas():
+    limpar_tela()
+    escrever_devagar("\033[32mTodas as tarefas:\033[m")
+    
+    if not lista_tudo:
+        escrever_devagar("\033[33mNenhuma tarefa cadastrada!\033[m")
+    else:
+        for tarefa, status in lista_tudo.items():
+            if status:
+                print(f"✓ {tarefa} - \033[32mCONCLUÍDA\033[m")
+            else:
+                print(f"✗ {tarefa} - \033[31mPENDENTE\033[m")
+    
+    input("\nPressione Enter para continuar...")
+    fazer_opcao()
+
+def ver_feitas():
+    limpar_tela()
+    escrever_devagar("\033[32mTarefas concluídas:\033[m")
+    
+    if not lista_concluidas:
+        escrever_devagar("\033[33mNenhuma tarefa concluída!\033[m")
+    else:
+        for tarefa in lista_concluidas:
+            print(f"✓ {tarefa}")
+    
+    input("\nPressione Enter para continuar...")
+    fazer_opcao()
+
+def ver_naofeitas():
+    limpar_tela()
+    escrever_devagar("\033[32mTarefas não concluídas:\033[m")
+    
+    if not lista_naoconcluidas:
+        escrever_devagar("\033[33mNenhuma tarefa pendente!\033[m")
+    else:
+        for tarefa in lista_naoconcluidas:
+            print(f"✗ {tarefa}")
+    
+    input("\nPressione Enter para continuar...")
+    fazer_opcao()
+
+def marcar_como_concluida():
+    limpar_tela()
+    escrever_devagar("\033[32mMarcar tarefa como concluída:\033[m")
+    
+    if not lista_naoconcluidas:
+        escrever_devagar("\033[33mNenhuma tarefa pendente para marcar!\033[m")
+        sleep(2)
+        fazer_opcao()
+        return
+    
+    print("Tarefas pendentes:")
+    for tarefa in lista_naoconcluidas:
+        print(f"✗ {tarefa}")
+    
+    tarefa_marcar = input("\nQual tarefa deseja marcar como concluída?: ").strip().lower()
+    
+    if tarefa_marcar in lista_naoconcluidas:
+        lista_tudo[tarefa_marcar] = True
+        del lista_naoconcluidas[tarefa_marcar]
+        lista_concluidas[tarefa_marcar] = True
+        
+        escrever_devagar(f"\033[32mTarefa '{tarefa_marcar}' marcada como CONCLUÍDA!\033[m")
+        salvar_dados() 
+    else:
+        escrever_devagar("\033[31mTarefa não encontrada ou já está concluída!\033[m")
+    
+    sleep(2)
+    fazer_opcao()
+
+def desmarcar_como_concluida():
+    limpar_tela()
+    escrever_devagar("\033[32mDesmarcar tarefa como concluída:\033[m")
+    
+    if not lista_concluidas:
+        escrever_devagar("\033[33mNenhuma tarefa concluída para desmarcar!\033[m")
+        sleep(2)
+        fazer_opcao()
+        return
+    
+    print("Tarefas concluídas:")
+    for tarefa in lista_concluidas:
+        print(f"✓ {tarefa}")
+    
+    tarefa_desmarcar = input("\nQual tarefa deseja desmarcar como concluída?: ").strip().lower()
+    
+    if tarefa_desmarcar in lista_concluidas:
+        lista_tudo[tarefa_desmarcar] = False
+        del lista_concluidas[tarefa_desmarcar]
+        lista_naoconcluidas[tarefa_desmarcar] = False
+        escrever_devagar(f"\033[32mTarefa '{tarefa_desmarcar}' desmarcada como PENDENTE!\033[m")
+        salvar_dados()  
+    else:
+        escrever_devagar("\033[31mTarefa não encontrada ou não está concluída!\033[m")
+    sleep(2)
+    fazer_opcao()
+
+def excluir_tarefa():
+    limpar_tela()
+    escrever_devagar("\033[32mExcluir tarefa:\033[m")
+    
+    if not lista_tudo:
+        escrever_devagar("\033[33mNenhuma tarefa para excluir!\033[m")
+        sleep(2)
+        fazer_opcao()
+        return
+    
+    print("Todas as tarefas:")
+    for tarefa, status in lista_tudo.items():
+        if status:
+            print(f"✓ {tarefa}")
+        else:
+            print(f"✗ {tarefa}")
+    
+    tarefa_excluir = input("\nQual tarefa deseja excluir?: ").strip().lower()
+    
+    if tarefa_excluir in lista_tudo:
+        # Remove de todas as listas
+        del lista_tudo[tarefa_excluir]
+        if tarefa_excluir in lista_concluidas:
+            del lista_concluidas[tarefa_excluir]
+        if tarefa_excluir in lista_naoconcluidas:
+            del lista_naoconcluidas[tarefa_excluir]
+        
+        escrever_devagar(f"\033[32mTarefa '{tarefa_excluir}' excluída com sucesso!\033[m")
+        salvar_dados()
+    else:
+        escrever_devagar("\033[31mTarefa não encontrada!\033[m")
+    
+    sleep(2)
+    fazer_opcao()
+
+def limpar_todas_tarefas():
+    limpar_tela()
+    escrever_devagar("\033[31mATENÇÃO: Isso apagará TODAS as tarefas!\033[m")
+    
+    confirmacao = input("Tem certeza? (s/n): ").strip().lower()
+    
+    if confirmacao == 's':
+        lista_tudo.clear()
+        lista_concluidas.clear()
+        lista_naoconcluidas.clear()
+        
+        escrever_devagar("\033[32mTodas as tarefas foram removidas!\033[m")
+        salvar_dados() 
+    else:
+        escrever_devagar("Operação cancelada.")
+    
+    sleep(2)
+    fazer_opcao()
+
+if __name__ == "__main__":
+    while True:
+        limpar_tela()
+        fazer_opcao()
+
